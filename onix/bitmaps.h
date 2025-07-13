@@ -1,7 +1,7 @@
-#ifndef BITMAPS_H
-#define BITMAPS_H
+// Declaraciones de bitmaps para el proyecto Onix
+// Solo se declaran como extern para que el .ino los pueda usar
 
-#include <Arduino.h>
+#pragma once
 
 extern const unsigned char cat_openojosabiertos[] PROGMEM;
 extern const unsigned char cat_openojoscerrados[] PROGMEM;
@@ -18,5 +18,4 @@ extern const unsigned char epd_bitmap_lengua9[] PROGMEM;
 extern const unsigned char epd_bitmap_lengua10[] PROGMEM;
 extern const unsigned char epd_bitmap_lengua11[] PROGMEM;
 extern const unsigned char epd_bitmap_lengua12[] PROGMEM;
-
-#endif // BITMAPS_H
+// Agrega aquí cualquier otro bitmap que uses
