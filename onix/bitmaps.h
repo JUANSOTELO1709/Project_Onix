@@ -3,19 +3,19 @@
 
 #pragma once
 
-extern const unsigned char cat_openojosabiertos[] PROGMEM;
-extern const unsigned char cat_openojoscerrados[] PROGMEM;
-extern const unsigned char epd_bitmap_bocaAbierta[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua1[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua2[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua3[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua4[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua5[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua6[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua7[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua8[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua9[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua10[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua11[] PROGMEM;
-extern const unsigned char epd_bitmap_lengua12[] PROGMEM;
+extern const unsigned char cat_openojosabiertos[];
+extern const unsigned char cat_openojoscerrados[];
+extern const unsigned char epd_bitmap_bocaAbierta[];
+extern const unsigned char epd_bitmap_lengua1[];
+extern const unsigned char epd_bitmap_lengua2[];
+extern const unsigned char epd_bitmap_lengua3[];
+extern const unsigned char epd_bitmap_lengua4[];
+extern const unsigned char epd_bitmap_lengua5[];
+extern const unsigned char epd_bitmap_lengua6[];
+extern const unsigned char epd_bitmap_lengua7[];
+extern const unsigned char epd_bitmap_lengua8[];
+extern const unsigned char epd_bitmap_lengua9[];
+extern const unsigned char epd_bitmap_lengua10[];
+extern const unsigned char epd_bitmap_lengua11[];
+extern const unsigned char epd_bitmap_lengua12[];
 // Agrega aquí cualquier otro bitmap que uses
