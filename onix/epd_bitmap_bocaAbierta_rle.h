@@ -1,4 +1,6 @@
 // Bitmap comprimido con RLE para epd_bitmap_bocaAbierta
+#ifndef EPD_BITMAP_BOCAABIERTA_RLE_H
+#define EPD_BITMAP_BOCAABIERTA_RLE_H
 const unsigned char epd_bitmap_bocaAbierta_rle[] PROGMEM = {
   0xff,1, 0xe0,1, 0x00,6, 0x07,1, 0xff,1,
   0xff,16,
@@ -24,3 +26,4 @@ const unsigned char epd_bitmap_bocaAbierta_rle[] PROGMEM = {
   0xff,3, 0xfe,1, 0x07,1, 0x80,1, 0x70,1, 0xe0,1, 0x00,1, 0x83,1, 0x00,1, 0x30,1, 0x7f,4,
   // ...continúa el resto del bitmap comprimido...
 };
+#endif

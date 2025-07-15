@@ -1,4 +1,6 @@
 // Bitmap comprimido con RLE para epd_bitmap_lenguaPantalla
+#ifndef EPD_BITMAP_LENGUAPANTALLA_RLE_H
+#define EPD_BITMAP_LENGUAPANTALLA_RLE_H
 const unsigned char epd_bitmap_lenguaPantalla_rle[] PROGMEM = {
   0xff,1, 0xe0,1, 0x00,4, 0x1f,1, 0xff,1, 0xfc,1, 0x1f,1, 0xff,1, 0xf8,1, 0x00,4, 0x07,1, 0xff,1,
   0xff,16,
@@ -6,3 +8,4 @@ const unsigned char epd_bitmap_lenguaPantalla_rle[] PROGMEM = {
   0xfe,1, 0x7f,1, 0xff,1, 0xfe,1, 0xff,1, 0xff,1, 0xff,1, 0xff,1, 0xff,1, 0xff,1, 0x4f,1, 0xff,1, 0xff,1, 0xff,1, 0xff,1,
   // ...continúa el resto del bitmap comprimido...
 };
+#endif

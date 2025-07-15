@@ -1,7 +1,7 @@
-// Bitmap comprimido con RLE para epd_bitmap_lenguaGrande
-#ifndef EPD_BITMAP_LENGUAGRANDE_RLE_H
-#define EPD_BITMAP_LENGUAGRANDE_RLE_H
-const unsigned char epd_bitmap_lenguaGrande_rle[] PROGMEM = {
+// Bitmap comprimido con RLE para cat_openojosabiertos
+#ifndef CAT_OPENOJOSABIERTOS_RLE_H
+#define CAT_OPENOJOSABIERTOS_RLE_H
+const unsigned char cat_openojosabiertos_rle[] PROGMEM = {
   0xff,1, 0xe0,1, 0x00,6, 0x07,1, 0xff,1,
   0xff,16,
   0xff,16,
