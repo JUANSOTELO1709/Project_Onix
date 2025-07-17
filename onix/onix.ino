@@ -29,6 +29,7 @@ void drawRLEBitmap(int x, int y, const unsigned char *rle, int width, int height
 	  int px = x + (i % width);
 	  int py = y + (i / width);
 	  display.drawPixel(px, py, value ? color : BLACK);
+	  
 	}
   }
 }
