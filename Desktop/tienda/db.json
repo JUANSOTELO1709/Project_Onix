@@ -1,0 +1,265 @@
+{
+  "categorias": [
+    {
+      "productos": [
+        {
+          "img": "https://images.unsplash.com/photo-1608346128025-1896b97a6fa7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+          "nombre": "mandalorian",
+          "precio": 123,
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 2
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1547700055-b61cacebece9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+          "nombre": "scol trooper blanco",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "precio": 123,
+          "id": 3
+        },
+        {
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThKLJEQRvl7usD6NLDb5ctuSXS4OD6oaTSteDIoWA&s",
+          "nombre": "star war 1",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "precio": 123,
+          "id": 4
+        },
+        {
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThKLJEQRvl7usD6NLDb5ctuSXS4OD6oaTSteDIoWA&s",
+          "nombre": "star war 1",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "precio": 123,
+          "id": 5
+        },
+        {
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThKLJEQRvl7usD6NLDb5ctuSXS4OD6oaTSteDIoWA&s",
+          "nombre": "star war 1",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "precio": 123,
+          "id": 6
+        },
+        {
+          "img": "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/5A92131654C1E0B1A4C072A327E49FB30CA8BDED279852FB32CAD9B33B4AAAB1/scale?width=2880&aspectRatio=1.78&format=jpeg",
+          "nombre": "lamina nave",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "precio": "22",
+          "id": 7
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80",
+          "nombre": "star beatles1",
+          "precio": "1234",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 8
+        }
+      ],
+      "id": "StarsWars"
+    },
+    {
+      "productos": [
+        {
+          "img": "https://images.unsplash.com/photo-1571716846319-21f2bf095516?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "Mando xbox b",
+          "precio": "230",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 1
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1531390658120-e06b58d826ea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=389&q=80",
+          "nombre": "play station 1",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 2
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1550921464-9f7a27f99edc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80",
+          "nombre": "nintendo switch",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 3
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1526509867162-5b0c0d1b4b33?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "play station 3",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 4
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1607016284318-d1384bf5edd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+          "nombre": "play station 5",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 5
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1555864326-5cf22ef123cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGNvbnNvbGFzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1000&q=60",
+          "nombre": "game boy",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 6
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1516111143745-fbfc2ebd6352?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=550&q=80",
+          "nombre": "family",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 7
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1588689115724-a624efec3c93?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "ps vita",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 8
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1618836958889-76f62f3724cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80",
+          "nombre": "mando ps5",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 9
+        }
+
+
+      ],
+      "id": "consolas"
+    },
+    {
+      "productos": [
+        {
+          "img": "https://images.unsplash.com/photo-1655176471504-98ce2bd8af06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "teclado m b",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 1
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1658700055348-f622867b22c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80",
+          "nombre": "teclado m n",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 2
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1646505262769-db0b272acb7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+          "nombre": "teclado m rgb",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 3
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1560429506-b505b229870b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=436&q=80",
+          "nombre": "teclado rgb",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 4
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1625130694338-4110ba634e59?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+          "nombre": "teclado m org",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 5
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1669656486800-1dc2768219ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "teclado nbook",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 6
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1635135449698-dbf56dd1dd0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "teclado desr y",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 7
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1595045051853-05ef47bdfdbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "teclado mx m",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 8
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1628518494708-9af97e317273?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80",
+          "nombre": "teclado metalico",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 9
+        }
+
+      ],
+      "id": "Teclados"
+    },
+    {
+      "productos": [
+        {
+          "img": "https://images.unsplash.com/photo-1626379616459-b2ce1d9decbc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+          "nombre": "nike clasic",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 1
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80",
+          "nombre": "nike black",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 2
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80",
+          "nombre": "topper rose",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 3
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+          "nombre": "nike air j",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 4
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=821&q=80",
+          "nombre": "converse red",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 5
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+          "nombre": "nike jordan clasic",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 6
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1597045566677-8cf032ed6634?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+          "nombre": "nike jordan",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 7
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=465&q=80",
+          "nombre": "nike air white",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 8
+        },
+        {
+          "img": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+          "nombre": "nike air roce",
+          "precio": "1104",
+          "descripcion": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error blanditiis reiciendis voluptatum. Voluptas suscipit laboriosam quisquam, repudiandae cum explicabo, voluptates laudantium ducimus maiores cumque perferendis nihil. Magni, nihil. Facilis, dicta.",
+          "id": 9
+        }
+      ],
+      "id": "minecraft"
+    }
+  ]
+}
