@@ -10,8 +10,46 @@
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+#define BUTTON_LEFT 2
+#define BUTTON_RIGHT 3
 
+enum MenuState {
+  MENU_TIEMPO,
+  MENU_NOMBRE,
+  MENU_COMIDA,
+  MENU_TOTAL
+};
 
+MenuState menuActual = MENU_TIEMPO;
+
+void mostrarMenu() {
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(10, 10);
+
+  switch (menuActual) {
+    case MENU_TIEMPO:
+      display.println("Tiempo");
+      display.setTextSize(1);
+      display.setCursor(10, 35);
+      display.println("Reloj: --:--");
+      break;
+    case MENU_NOMBRE:
+      display.println("Mascota");
+      display.setTextSize(1);
+      display.setCursor(10, 35);
+      display.println("Nombre: Onix");
+      break;
+    case MENU_COMIDA:
+      display.println("Comida");
+      display.setTextSize(1);
+      display.setCursor(10, 35);
+      display.println("Cantidad: 50g");
+      break;
+  }
+  display.display();
+}
 
 void setup() {
   Serial.begin(115200);
@@ -31,6 +69,9 @@ void setup() {
   display.setCursor(0, 0);
   display.println("Hola Juan!");
   display.display();
+
+  pinMode(BUTTON_LEFT, INPUT_PULLUP);
+  pinMode(BUTTON_RIGHT, INPUT_PULLUP);
 }
 
 void loop() {
@@ -52,6 +93,17 @@ void loop() {
     display.println("Onix 1.0");
     display.display();
     delay(1000);
-  }
+  } else {
+    mostrarMenu();
 
+    // Navegación con botones
+    if (digitalRead(BUTTON_RIGHT) == LOW) {
+      menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
+      delay(200); // debounce
+    }
+    if (digitalRead(BUTTON_LEFT) == LOW) {
+      menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
+      delay(200); // debounce
+    }
+  }
 }
