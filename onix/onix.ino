@@ -94,16 +94,21 @@ void loop() {
     display.display();
     delay(1000);
   } else {
+
+    
+
+
+
     mostrarMenu();
 
     // Navegación con botones
     if (digitalRead(BUTTON_RIGHT) == LOW) {
       menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
-      delay(200); // debounce
+      delay(200); 
     }
     if (digitalRead(BUTTON_LEFT) == LOW) {
       menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
-      delay(200); // debounce
+      delay(200); 
     }
   }
 }
