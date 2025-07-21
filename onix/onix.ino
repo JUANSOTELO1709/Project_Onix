@@ -67,7 +67,6 @@ void setup() {
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
-  display.println("Hola Juan!");
   display.display();
 
   pinMode(BUTTON_LEFT, INPUT_PULLUP);
