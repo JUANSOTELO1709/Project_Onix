@@ -28,19 +28,37 @@ void mostrarMenu() {
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(10, 10);
 
-  switch (menuActual) {
-    case MENU_TIEMPO:
-      display.println("Tiempo");
-      display.setTextSize(1);
+switch (menuActual) {
+
+  case MENU_TIEMPO:
+    display.setTextSize(1);
+    display.setCursor(0, 0);
+    display.println("Horario alimentacion");
+
+    if (enSubMenuVeces) {
+      display.setCursor(10, 20);
+      display.println("Veces al dia:");
+      display.setTextSize(2);
+      display.setCursor(50, 40);
+      display.println(vecesAlDia);
+    } else {
       display.setCursor(10, 35);
+      display.setTextSize(1);
       display.println("Reloj: --:--");
-      break;
-    case MENU_NOMBRE:
-      display.println("Mascota");
-      display.setTextSize(1);
-      display.setCursor(10, 35);
-      display.println("Nombre: Onix");
-      break;
+      display.setCursor(0, 50);
+      display.println("Press SELECT para editar");
+    }
+    break;
+
+  case MENU_NOMBRE:
+    display.setTextSize(1);
+    display.setCursor(0, 0);
+    display.println("Mascota");
+    display.setCursor(10, 35);
+    display.println("Nombre: Onix");
+    break;
+
+
     case MENU_COMIDA:
       display.println("Comida");
       display.setTextSize(1);
@@ -48,7 +66,10 @@ void mostrarMenu() {
       display.println("Cantidad: 50g");
       break;
   }
+
+
   display.display();
+
 }
 
 void setup() {
