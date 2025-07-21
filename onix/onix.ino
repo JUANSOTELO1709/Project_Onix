@@ -12,6 +12,11 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define BUTTON_LEFT 2
 #define BUTTON_RIGHT 3
+// Variable que indica si estás dentro del submenú "Veces al día"
+bool enSubMenuVeces = false;
+
+// Variable que almacena la cantidad de veces al día (rango de 1 a 5)
+int vecesAlDia = 1;
 
 enum MenuState {
   MENU_TIEMPO,
