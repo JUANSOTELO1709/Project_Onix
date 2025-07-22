@@ -35,8 +35,9 @@ void mostrarMenu() {
 
 switch (menuActual) {
 
-  case MENU_TIEMPO:
-    display.setTextSize(1);
+  case MENU_TIEMPO: 
+
+    display.setTextSize(2);
     display.setCursor(0, 0);
     display.println("Horario alimentacion");
 
@@ -45,13 +46,14 @@ switch (menuActual) {
       display.println("Veces al dia:");
       display.setTextSize(2);
       display.setCursor(50, 40);
-      display.println(vecesAlDia);
+      display.println("Press SELECT");
+
     } else {
       display.setCursor(10, 35);
       display.setTextSize(1);
-      display.println("Reloj: --:--");
+      display.println("Elija cantidad de veces al dia");
       display.setCursor(0, 50);
-      display.println("Press SELECT para editar");
+      display.println("01 - 05");
     }
     break;
 
