@@ -12,11 +12,13 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define BUTTON_LEFT 2
 #define BUTTON_RIGHT 3
-// Variable que indica si estás dentro del submenú "Veces al día"
+#define BUTTON_SELECT 4
 bool enSubMenuVeces = false;
 
 // Variable que almacena la cantidad de veces al día (rango de 1 a 5)
 int vecesAlDia = 1;
+int submenuTiempoIndex = 0;  // 0: título, 1: explicación, 2: selección veces
+const int submenuTiempoTotal = 3; // Total de pantallas dentro del menú
 
 enum MenuState {
   MENU_TIEMPO,
@@ -27,6 +29,15 @@ enum MenuState {
 
 MenuState menuActual = MENU_TIEMPO;
 
+void controlarBotonSelect() {
+  if (digitalRead(BUTTON_SELECT) == LOW) {
+    if (menuActual == MENU_TIEMPO) {
+      submenuTiempoIndex = (submenuTiempoIndex + 1) % submenuTiempoTotal;
+      delay(200);
+    }
+  }
+}
+
 void mostrarMenu() {
   display.clearDisplay();
   display.setTextSize(2);
@@ -35,26 +46,33 @@ void mostrarMenu() {
 
 switch (menuActual) {
 
-  case MENU_TIEMPO: 
+ case MENU_TIEMPO:
 
-    display.setTextSize(2);
+    display.setTextSize(1);
     display.setCursor(0, 0);
-    display.println("Horario alimentacion");
 
-    if (enSubMenuVeces) {
+    if (submenuTiempoIndex == 0) {
+      display.setTextSize(2);
+      display.println("Horario");
+      display.setCursor(0, 20);
+      display.println("alimentacion");
+
+    } else if (submenuTiempoIndex == 1) {
+      display.setTextSize(1);
+      display.setCursor(10, 35);
+      display.println("Elija cantidad de");
+      display.setCursor(10, 45);
+      display.println("veces al dia (01 - 05)");
+
+    } else if (submenuTiempoIndex == 2) {
+      display.setTextSize(1);
       display.setCursor(10, 20);
       display.println("Veces al dia:");
       display.setTextSize(2);
       display.setCursor(50, 40);
-      display.println("Press SELECT");
-
-    } else {
-      display.setCursor(10, 35);
-      display.setTextSize(1);
-      display.println("Elija cantidad de veces al dia");
-      display.setCursor(0, 50);
-      display.println("01 - 05");
+      display.println(vecesAlDia);
     }
+
     break;
 
   case MENU_NOMBRE:
