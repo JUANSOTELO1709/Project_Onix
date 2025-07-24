@@ -55,7 +55,7 @@ switch (menuActual) {
       display.setTextSize(2);
       display.println("Horario");
       display.setCursor(0, 20);
-      display.println("alimentacion");
+      display.println("alimento");
 
     } else if (submenuTiempoIndex == 1) {
       display.setTextSize(1);
