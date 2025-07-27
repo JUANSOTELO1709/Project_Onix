@@ -51,13 +51,32 @@ switch (menuActual) {
     display.setTextSize(1);
     display.setCursor(0, 0);
 
-    if (submenuTiempoIndex == 0) {
-      display.setTextSize(2);
-      display.println("Horario");
-      display.setCursor(0, 20);
-      display.println("alimento");
+if (submenuTiempoIndex == 0) {
+  display.clearDisplay();  // Borra la pantalla
 
-    } else if (submenuTiempoIndex == 1) {
+  // Flecha hacia arriba (parte superior)
+  display.setTextSize(2);
+  display.setCursor((128 - 12) / 2, 0); // Aproximadamente centrado
+  display.print((char)24); // Código ASCII de flecha ↑
+
+  // Texto centrado "Horario"
+  display.setTextSize(2);
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.getTextBounds("Horario", 0, 0, &x1, &y1, &w, &h);
+  display.setCursor((128 - w) / 2, (64 - h) / 2);
+  display.print("Horario");
+
+  // Flecha hacia abajo (parte inferior)
+  display.setTextSize(2);
+  display.setCursor((128 - 12) / 2, 64 - 16); // Abajo
+  display.print((char)25); // Código ASCII de flecha ↓
+
+  display.display();  // Muestra todo en la pantalla
+}
+
+    
+    else if (submenuTiempoIndex == 1) {
       display.setTextSize(1);
       display.setCursor(10, 35);
       display.println("Elija cantidad de");
