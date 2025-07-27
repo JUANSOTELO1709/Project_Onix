@@ -12,7 +12,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define BUTTON_LEFT 2
 #define BUTTON_RIGHT 3
-#define BUTTON_SELECT 4
+#define BUTTON_SELECT 6
 bool enSubMenuVeces = false;
 
 // Variable que almacena la cantidad de veces al día (rango de 1 a 5)
