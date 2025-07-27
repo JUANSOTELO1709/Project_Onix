@@ -54,12 +54,11 @@ switch (menuActual) {
 if (submenuTiempoIndex == 0) {
   display.clearDisplay();  // Borra la pantalla
 
-  // Flecha hacia arriba (parte superior)
+  // Flecha hacia arriba (parte super
   display.setTextSize(2);
-  display.setCursor((128 - 12) / 2, 0); // Aproximadamente centrado
-  display.print((char)24); // Código ASCII de flecha ↑
+  display.setCursor((128 - 12) / 2, 0); //
+  display.print((char)24); //↑
 
-  // Texto centrado "Horario"
   display.setTextSize(2);
   int16_t x1, y1;
   uint16_t w, h;
@@ -69,10 +68,10 @@ if (submenuTiempoIndex == 0) {
 
   // Flecha hacia abajo (parte inferior)
   display.setTextSize(2);
-  display.setCursor((128 - 12) / 2, 64 - 16); // Abajo
-  display.print((char)25); // Código ASCII de flecha ↓
+  display.setCursor((128 - 12) / 2, 64 - 16); 
+  display.print((char)25); // ↓
 
-  display.display();  // Muestra todo en la pantalla
+  display.display();  
 }
 
     
@@ -94,21 +93,28 @@ if (submenuTiempoIndex == 0) {
 
     break;
 
-  case MENU_NOMBRE:
-    display.setTextSize(1);
-    display.setCursor(0, 0);
-    display.println("Mascota");
-    display.setCursor(10, 35);
-    display.println("Nombre: Onix");
-    break;
+
 
 
     case MENU_COMIDA:
-      display.println("Comida");
-      display.setTextSize(1);
-      display.setCursor(10, 35);
-      display.println("Cantidad: 50g");
-      break;
+  display.clearDisplay();  // Borra la pantalla
+
+  // Flecha hacia arriba (parte super
+  display.setTextSize(2);
+  display.setCursor((128 - 12) / 2, 0); //
+  display.print((char)24); //↑
+
+  display.setTextSize(2);
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.getTextBounds("Cantidad", 0, 0, &x1, &y1, &w, &h);
+  display.setCursor((128 - w) / 2, (64 - h) / 2);
+  display.print("Cantidad");
+
+  // Flecha hacia abajo (parte inferior)
+  display.setTextSize(2);
+  display.setCursor((128 - 12) / 2, 64 - 16); 
+  display.print((char)25); // ↓
   }
 
 
