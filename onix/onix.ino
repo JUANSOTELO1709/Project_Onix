@@ -85,13 +85,14 @@ if (submenuTiempoIndex == 0) {
     } else if (submenuTiempoIndex == 2) {
       display.setTextSize(1);
       display.setCursor(10, 20);
-      display.println("Veces al dia:");
+      display.println("veces al dia:");
       display.setTextSize(2);
       display.setCursor(50, 40);
       display.println(vecesAlDia);
     }
 
     break;
+
 
 
 
