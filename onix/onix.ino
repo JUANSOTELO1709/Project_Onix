@@ -180,6 +180,8 @@ void loop() {
     if (digitalRead(BUTTON_LEFT) == LOW) {
       menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
       delay(200); 
+
+      
     }
   }
 }
