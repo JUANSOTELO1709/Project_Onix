@@ -3,7 +3,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Stepper.h>
-#include "animacion.h"
 
 // ====================== OLED ======================
 #define SCREEN_WIDTH 128
@@ -24,164 +23,125 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define IN4 11
 Stepper myStepper(STEPS_PER_REV, IN1, IN3, IN2, IN4);
 
-// ====================== MENÚ ======================
+// ====================== MENÚ PRINCIPAL ======================
 enum MenuState {
-  MENU_TIEMPO,
-  MENU_NOMBRE,
-  MENU_CANTIDAD,
-  MENU_EXTRACCION,
+  MENU_CANTIDAD,    // Opción 1: Ajustar cantidad
+  MENU_EXTRACCION,  // Opción 2: Extraer
+  MENU_HORARIO,     // Opción 3: Ajustar horario
   MENU_TOTAL
 };
-MenuState menuActual = MENU_TIEMPO;
+MenuState menuActual = MENU_CANTIDAD;
 
 // ====================== VARIABLES ======================
-int submenuTiempoIndex = 0;
-const int submenuTiempoTotal = 3;
-int vecesAlDia = 1;
-
-// Cantidades y revoluciones
 const char* cantidadesTexto[] = {"10g", "20g", "30g", "40g", "50g"};
 const int revolucionesPorCantidad[] = {1, 2, 3, 4, 5};
 const int totalCantidades = 5;
 int cantidadIndex = 0;
-bool enSubMenuCantidad = false;
 
-void controlarBotonSelect() {
-  if (digitalRead(BUTTON_SELECT) == LOW) {
-    if (menuActual == MENU_TIEMPO) {
-      submenuTiempoIndex = (submenuTiempoIndex + 1) % submenuTiempoTotal;
-      delay(200);
-    } else if (menuActual == MENU_CANTIDAD) {
-      enSubMenuCantidad = !enSubMenuCantidad; // Entrar/salir del submenú
-      delay(200);
-    } else if (menuActual == MENU_EXTRACCION) {
-      Serial.print("Extrayendo ");
-      Serial.println(cantidadesTexto[cantidadIndex]);
-      myStepper.setSpeed(10);
-      myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
-      delay(200);
-    }
-  }
-}
+int hora = 8;  // Ejemplo: Hora inicial
 
+// ====================== FUNCIONES ======================
 void mostrarMenu() {
   display.clearDisplay();
-  display.setTextSize(2);
+  display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(10, 10);
 
   switch (menuActual) {
-
-    // ===== TIEMPO =====
-    case MENU_TIEMPO:
-      if (submenuTiempoIndex == 0) {
-        display.setTextSize(2);               
-        display.setCursor((128 - 12) / 2, 0);
-        display.print((char)24);
-        display.setCursor(30, 30);
-        display.print("Horario");
-        display.setCursor((128 - 12) / 2, 64 - 16);
-        display.print((char)25);
-      } else if (submenuTiempoIndex == 1) {
-        display.setTextSize(1);
-        display.setCursor(10, 35);
-        display.println("Elija cantidad de");
-        display.setCursor(10, 45);
-        display.println("veces al dia (01 - 05)");
-      } else if (submenuTiempoIndex == 2) {
-        display.setCursor(10, 20);
-        display.println("veces al dia:");
-        display.setTextSize(2);
-        display.setCursor(50, 40);
-        display.println(vecesAlDia);
-      }
-      break;
-
     // ===== CANTIDAD =====
     case MENU_CANTIDAD:
-      display.setTextSize(1);
       display.setCursor(10, 10);
       display.println("Cantidad:");
-
       display.setTextSize(2);
-      display.setCursor(40, 35);
+      display.setCursor(40, 30);
       display.println(cantidadesTexto[cantidadIndex]);
-
-      // Cambiar cantidad solo si estamos en submenú
-      if (enSubMenuCantidad) {
-        if (digitalRead(BUTTON_RIGHT) == LOW) {
-          cantidadIndex = (cantidadIndex + 1) % totalCantidades;
-          delay(200);
-        }
-        if (digitalRead(BUTTON_LEFT) == LOW) {
-          cantidadIndex = (cantidadIndex - 1 + totalCantidades) % totalCantidades;
-          delay(200);
-        }
-      }
       break;
 
     // ===== EXTRACCIÓN =====
     case MENU_EXTRACCION:
+      display.setCursor(10, 10);
+      display.println("Extraer:");
       display.setTextSize(2);
-      display.setCursor(15, 20);
-      display.println("Extraccion");
-      display.setTextSize(1);
-      display.setCursor(10, 50);
-      display.println("Presiona SELECT");
+      display.setCursor(30, 30);
+      display.println(cantidadesTexto[cantidadIndex]);
+      break;
+
+    // ===== HORARIO =====
+    case MENU_HORARIO:
+      display.setCursor(10, 10);
+      display.println("Horario:");
+      display.setTextSize(2);
+      display.setCursor(40, 30);
+      display.print(hora);
+      display.println(":00");
       break;
   }
 
+  // Indicador de selección (flecha)
+  display.setTextSize(2);
+  display.setCursor(0, 30);
+  display.print(">");
   display.display();
+}
+
+void controlarBotones() {
+  // Navegación izquierda/derecha entre opciones principales
+  if (digitalRead(BUTTON_RIGHT) == LOW) {
+    menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
+    delay(200);
+  }
+  if (digitalRead(BUTTON_LEFT) == LOW) {
+    menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
+    delay(200);
+  }
+
+  // Acción con SELECT (depende de la opción)
+  if (digitalRead(BUTTON_SELECT) == LOW) {
+    switch (menuActual) {
+      case MENU_CANTIDAD:
+        // Cambiar cantidad (con LEFT/RIGHT)
+        if (digitalRead(BUTTON_LEFT) == LOW) {
+          cantidadIndex = (cantidadIndex - 1 + totalCantidades) % totalCantidades;
+        }
+        if (digitalRead(BUTTON_RIGHT) == LOW) {
+          cantidadIndex = (cantidadIndex + 1) % totalCantidades;
+        }
+        break;
+
+      case MENU_EXTRACCION:
+        // Activar motor para extraer
+        myStepper.setSpeed(10);
+        myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
+        break;
+
+      case MENU_HORARIO:
+        // Ajustar hora (con LEFT/RIGHT)
+        if (digitalRead(BUTTON_LEFT) == LOW) {
+          hora = (hora - 1) % 24;
+        }
+        if (digitalRead(BUTTON_RIGHT) == LOW) {
+          hora = (hora + 1) % 24;
+        }
+        break;
+    }
+    delay(200);
+  }
 }
 
 void setup() {
   Serial.begin(115200);
-  delay(100);
-  Wire.begin();
-
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println(F("No se detecta la pantalla OLED"));
-    while (true);
-  }
-
   pinMode(BUTTON_LEFT, INPUT_PULLUP);
   pinMode(BUTTON_RIGHT, INPUT_PULLUP);
   pinMode(BUTTON_SELECT, INPUT_PULLUP);
 
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("Error en OLED"));
+    while (true);
+  }
   display.clearDisplay();
   display.display();
 }
 
 void loop() {
-  static bool animacionHecha = false;
-
-  if (!animacionHecha) {
-    for (int i = 0; i < NUM_BITMAPS; i++) {
-      display.clearDisplay();
-      display.drawBitmap(0, 0, animacionBitmaps[i], 128, 64, SSD1306_WHITE);
-      display.display();
-      delay(animacionDelays[i]);
-    }
-    animacionHecha = true;
-    display.clearDisplay();
-    display.setTextSize(2);
-    display.setCursor(5, 20);
-    display.println("Onix 1.0");
-    display.display();
-    delay(1000);
-  } else {
-    mostrarMenu();
-    controlarBotonSelect();
-
-    if (!enSubMenuCantidad) { // Solo navegar si no estamos dentro del submenú
-      if (digitalRead(BUTTON_RIGHT) == LOW) {
-        menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
-        delay(200);
-      }
-      if (digitalRead(BUTTON_LEFT) == LOW) {
-        menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
-        delay(200);
-      }
-    }
-  }
+  mostrarMenu();
+  controlarBotones();
 }
