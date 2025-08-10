@@ -5,18 +5,18 @@
 #include <Stepper.h>
 #include "animacion.h"
 
-
+// ====================== OLED ======================
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 #define OLED_RESET -1
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-// Botones
+// ====================== BOTONES ======================
 #define BUTTON_LEFT 2
 #define BUTTON_RIGHT 3
 #define BUTTON_SELECT 6
 
-// Motor paso a paso
+// ====================== MOTOR PASO A PASO ======================
 #define STEPS_PER_REV 2048
 #define IN1 8
 #define IN2 9
@@ -24,7 +24,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define IN4 11
 Stepper myStepper(STEPS_PER_REV, IN1, IN3, IN2, IN4);
 
-// Estados de menú
+// ====================== MENÚ ======================
 enum MenuState {
   MENU_TIEMPO,
   MENU_NOMBRE,
@@ -34,16 +34,17 @@ enum MenuState {
 };
 MenuState menuActual = MENU_TIEMPO;
 
-// Variables
+// ====================== VARIABLES ======================
 int submenuTiempoIndex = 0;
 const int submenuTiempoTotal = 3;
 int vecesAlDia = 1;
-int cantidadIndex = 0;  // Índice para la cantidad de comida
-const int pasosPorGramo = 0.5 * STEPS_PER_REV / 50;  // Supuesto: 50g = 25 pasos
 
+// Cantidades y revoluciones
 const char* cantidadesTexto[] = {"10g", "20g", "30g", "40g", "50g"};
 const int revolucionesPorCantidad[] = {1, 2, 3, 4, 5};
 const int totalCantidades = 5;
+int cantidadIndex = 0;
+bool enSubMenuCantidad = false;
 
 void controlarBotonSelect() {
   if (digitalRead(BUTTON_SELECT) == LOW) {
@@ -51,13 +52,13 @@ void controlarBotonSelect() {
       submenuTiempoIndex = (submenuTiempoIndex + 1) % submenuTiempoTotal;
       delay(200);
     } else if (menuActual == MENU_CANTIDAD) {
-      cantidadIndex = (cantidadIndex + 1) % totalCantidades;
+      enSubMenuCantidad = !enSubMenuCantidad; // Entrar/salir del submenú
       delay(200);
     } else if (menuActual == MENU_EXTRACCION) {
       Serial.print("Extrayendo ");
       Serial.println(cantidadesTexto[cantidadIndex]);
       myStepper.setSpeed(10);
-      myStepper.step(pasosCantidad[cantidadIndex]);  // Activar motor
+      myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
       delay(200);
     }
   }
@@ -70,21 +71,15 @@ void mostrarMenu() {
   display.setCursor(10, 10);
 
   switch (menuActual) {
-    case MENU_TIEMPO:
-      display.setTextSize(1);
-      display.setCursor(0, 0);
 
+    // ===== TIEMPO =====
+    case MENU_TIEMPO:
       if (submenuTiempoIndex == 0) {
-        display.setTextSize(2);
+        display.setTextSize(2);               
         display.setCursor((128 - 12) / 2, 0);
         display.print((char)24);
-
-        int16_t x1, y1;
-        uint16_t w, h;
-        display.getTextBounds("Horario", 0, 0, &x1, &y1, &w, &h);
-        display.setCursor((128 - w) / 2, (64 - h) / 2);
+        display.setCursor(30, 30);
         display.print("Horario");
-
         display.setCursor((128 - 12) / 2, 64 - 16);
         display.print((char)25);
       } else if (submenuTiempoIndex == 1) {
@@ -102,59 +97,39 @@ void mostrarMenu() {
       }
       break;
 
+    // ===== CANTIDAD =====
+    case MENU_CANTIDAD:
+      display.setTextSize(1);
+      display.setCursor(10, 10);
+      display.println("Cantidad:");
 
+      display.setTextSize(2);
+      display.setCursor(40, 35);
+      display.println(cantidadesTexto[cantidadIndex]);
 
+      // Cambiar cantidad solo si estamos en submenú
+      if (enSubMenuCantidad) {
+        if (digitalRead(BUTTON_RIGHT) == LOW) {
+          cantidadIndex = (cantidadIndex + 1) % totalCantidades;
+          delay(200);
+        }
+        if (digitalRead(BUTTON_LEFT) == LOW) {
+          cantidadIndex = (cantidadIndex - 1 + totalCantidades) % totalCantidades;
+          delay(200);
+        }
+      }
+      break;
 
-// ====================== SUBMENÚ CANTIDAD ======================
-bool enSubMenuCantidad = false;
-
-case MENU_CANTIDAD:
-  display.setTextSize(1);
-  display.setCursor(10, 10);
-  display.println("Cantidad:");
-
-  display.setTextSize(2);
-  display.setCursor(40, 35);
-  display.println(cantidadesTexto[cantidadIndex]);
-
-  // Entrar o salir del submenú
-  if (digitalRead(BUTTON_SELECT) == LOW) {
-    enSubMenuCantidad = !enSubMenuCantidad;
-    delay(200);
+    // ===== EXTRACCIÓN =====
+    case MENU_EXTRACCION:
+      display.setTextSize(2);
+      display.setCursor(15, 20);
+      display.println("Extraccion");
+      display.setTextSize(1);
+      display.setCursor(10, 50);
+      display.println("Presiona SELECT");
+      break;
   }
-
-  // Ajustar cantidad si estamos en edición
-  if (enSubMenuCantidad) {
-    if (digitalRead(BUTTON_RIGHT) == LOW) {
-      cantidadIndex = (cantidadIndex + 1) % totalCantidades;
-      delay(200);
-    }
-    if (digitalRead(BUTTON_LEFT) == LOW) {
-      cantidadIndex = (cantidadIndex - 1 + totalCantidades) % totalCantidades;
-      delay(200);
-    }
-  }
-  break;
-
-// ====================== EXTRACCIÓN ======================
-case MENU_EXTRACCION:
-  display.setTextSize(2);
-  display.setCursor(15, 20);
-  display.println("Extraccion");
-
-  display.setTextSize(1);
-  display.setCursor(10, 50);
-  display.println("Presiona SELECT");
-
-  if (digitalRead(BUTTON_SELECT) == LOW) {
-    Serial.print("Extrayendo ");
-    Serial.println(cantidadesTexto[cantidadIndex]);
-
-    myStepper.setSpeed(10);
-    myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]); // N revoluciones
-    delay(200);
-  }
-  break;
 
   display.display();
 }
@@ -188,7 +163,6 @@ void loop() {
       delay(animacionDelays[i]);
     }
     animacionHecha = true;
-
     display.clearDisplay();
     display.setTextSize(2);
     display.setCursor(5, 20);
@@ -199,14 +173,15 @@ void loop() {
     mostrarMenu();
     controlarBotonSelect();
 
-    if (digitalRead(BUTTON_RIGHT) == LOW) {
-      menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
-      delay(200);
-    }
-
-    if (digitalRead(BUTTON_LEFT) == LOW) {
-      menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
-      delay(200);
+    if (!enSubMenuCantidad) { // Solo navegar si no estamos dentro del submenú
+      if (digitalRead(BUTTON_RIGHT) == LOW) {
+        menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
+        delay(200);
+      }
+      if (digitalRead(BUTTON_LEFT) == LOW) {
+        menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
+        delay(200);
+      }
     }
   }
 }
