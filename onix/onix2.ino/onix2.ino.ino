@@ -3,6 +3,13 @@
 #include <Adafruit_SSD1306.h>
 #include <Stepper.h>
 #include "animacion.h"
+#include <RTClib.h>
+
+
+RTC_DS3231 rtc;
+bool rtcPresent = false;
+int lastTriggerMinute[6] = {-1, -1, -1, -1, -1, -1}; // evita re-triggers en el mismo minuto
+
 // ====================== Configuración OLED ======================
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -150,6 +157,100 @@ void mostrarSubMenuHorario() {
   display.setTextColor(SSD1306_WHITE);
 
   switch (estadoHorario) {
+    case HORARIO_CANTIDAD: {
+      display.setTextSize(1);
+      display.setCursor((SCREEN_WIDTH - 84) / 2, 10);
+      display.println("Veces al dia:");
+      display.setTextSize(2);
+      display.setCursor((SCREEN_WIDTH - 12) / 2, 30);
+      display.print(cantidadVeces);
+      mostrarFlechas();
+      break;
+    }
+
+    case HORARIO_HORAS: {
+      display.setTextSize(1);
+      display.setCursor((SCREEN_WIDTH - 80) / 2, 10);
+      display.print("Hora comida ");
+      display.print(indiceHoraActual + 1);
+
+      display.setTextSize(2);
+      int xBase = (SCREEN_WIDTH - 48) / 2;
+      display.setCursor(xBase, 30);
+
+      if (horasAlimentacion[indiceHoraActual] < 10) display.print("0");
+      display.print(horasAlimentacion[indiceHoraActual]);
+      display.print(":");
+      if (minutosAlimentacion[indiceHoraActual] < 10) display.print("0");
+      display.print(minutosAlimentacion[indiceHoraActual]);
+
+      // indicador (caret) para hora/minuto (ajusta posiciones si quieres)
+      display.setTextSize(1);
+      if (/*si estás editando hora (añade variable editandoHora si la quieres)*/ false) {
+        display.setCursor(xBase + 2, 52);
+        display.print("^");
+      } else {
+        display.setCursor(xBase + 26, 52);
+        display.print("^");
+      }
+
+      mostrarFlechas();
+      break;
+    }
+
+    case HORARIO_MOSTRAR: {
+      display.setTextSize(1);
+      display.setCursor(SCREEN_WIDTH / 2 - 28, 6);
+      display.println("Hora actual:");
+
+      display.setTextSize(2);
+      display.setCursor(SCREEN_WIDTH / 2 - 20, 26);
+
+      if (rtcPresent) {
+        DateTime now = rtc.now();
+        if (now.hour() < 10) display.print("0");
+        display.print(now.hour());
+        display.print(":");
+        if (now.minute() < 10) display.print("0");
+        display.print(now.minute());
+      } else {
+        // fallback: usa tus variables 'hora' y 'minuto'
+        if (hora < 10) display.print("0");
+        display.print(hora);
+        display.print(":");
+        if (minuto < 10) display.print("0");
+        display.print(minuto);
+      }
+
+      // resumen programado en línea inferior
+      display.setTextSize(1);
+      display.setCursor(0, 52);
+      display.print("Prog:");
+      for (int i = 0; i < cantidadVeces; i++) {
+        char buf[6];
+        snprintf(buf, sizeof(buf), "%02d:%02d", horasAlimentacion[i], minutosAlimentacion[i]);
+        display.setCursor(36 + i * 22, 52);
+        display.print(buf);
+      }
+      mostrarFlechas();
+      break;
+    }
+  }
+
+  display.display();
+}
+
+
+
+
+
+
+
+
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+
+  switch (estadoHorario) {
     case HORARIO_CANTIDAD:
       display.setTextSize(1);
       display.setCursor((SCREEN_WIDTH - 84) / 2, 10);
@@ -261,6 +362,19 @@ void setup() {
   }
   display.clearDisplay();
   display.display();
+
+  // Inicializar RTC
+if (!rtc.begin()) {
+  Serial.println("No se encuentra el RTC DS3231");
+  rtcPresent = false;
+} else {
+  rtcPresent = true;
+  if (rtc.lostPower()) {
+    Serial.println("RTC lost power, ajustando a hora de compilacion");
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  }
+}
+
 }
 
 // LOOP ----------------
@@ -394,6 +508,24 @@ void loop() {
             delay(200);
           }
         }
+
+        // comprobar horarios y activar motor (usa RTC si está)
+DateTime now = rtcPresent ? rtc.now() : DateTime(2000,1,1,hora,minuto,0);
+
+for (int i = 0; i < cantidadVeces; i++) {
+  if (now.hour() == horasAlimentacion[i] && now.minute() == minutosAlimentacion[i]) {
+    if (lastTriggerMinute[i] != now.minute()) {
+      // activar motor (usa cantidadIndex actual)
+      myStepper.setSpeed(10);
+      myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
+
+      lastTriggerMinute[i] = now.minute();
+      delay(1000); // evita retriggers instantáneos
+    }
+  }
+}
+
+
       }
     }
   }
