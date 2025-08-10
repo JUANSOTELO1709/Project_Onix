@@ -46,6 +46,25 @@ int cantidadIndex = 0;                                                // Índice
 
 int hora = 8;    // Hora inicial (formato 24h)
 int minuto = 0;  // Minuto inicial
+
+
+
+
+
+int cantidadVeces = 2; // por defecto
+int horasAlimentacion[6] = {8, 12, 18, 0, 0, 0};
+int minutosAlimentacion[6] = {0, 0, 0, 0, 0, 0};
+
+enum HorarioState {
+  HORARIO_MOSTRAR,     // pantalla principal horario
+  HORARIO_CANTIDAD,    // seleccionar cantidad de veces
+  HORARIO_HORAS        // seleccionar cada hora
+};
+
+HorarioState estadoHorario = HORARIO_MOSTRAR;
+int indiceHoraActual = 0;
+
+
 // ====================== Función para mostrar flechas ======================
 void mostrarFlechas() {
   display.setTextSize(2);
@@ -57,7 +76,7 @@ void mostrarFlechas() {
   display.print((char)25);
 }
 
-// ====================== Mostrar Menú Principal ======================
+// ====================== Función de Mostrar Menú Principal ======================
 void mostrarMenuPrincipal() {
   display.clearDisplay();
   display.setTextColor(SSD1306_WHITE);
@@ -83,7 +102,7 @@ void mostrarMenuPrincipal() {
   display.display();
 }
 
-// ====================== Mostrar Submenú Cantidad ======================
+// ====================== Función de Mostrar Submenú Cantidad ======================
 void mostrarSubMenuCantidad() {
   display.clearDisplay();
   display.setTextColor(SSD1306_WHITE);
@@ -102,7 +121,7 @@ void mostrarSubMenuCantidad() {
   display.display();
 }
 
-// ====================== Mostrar Submenú Extracción ======================
+// ====================== Función de Mostrar Submenú Extracción ======================
 void mostrarSubMenuExtraccion() {
   display.clearDisplay();
   display.setTextColor(SSD1306_WHITE);
@@ -126,29 +145,53 @@ void mostrarSubMenuExtraccion() {
   display.display();
 }
 
-// ====================== Mostrar Submenú Horario ======================
 void mostrarSubMenuHorario() {
   display.clearDisplay();
   display.setTextColor(SSD1306_WHITE);
-  
-  // Texto "Horario:" (centrado)
-  display.setTextSize(1);
-  display.setCursor(SCREEN_WIDTH / 2 - 20, 10);
-  display.println("Horario:");
-  
-  // Hora actual (grande y centrado)
-  display.setTextSize(2);
-  display.setCursor(SCREEN_WIDTH / 2 - 20, 30);
-  if (hora < 10) display.print("0");  // Formato 08:00
-  display.print(hora);
-  display.print(":");
-  if (minuto < 10) display.print("0");
-  display.print(minuto);
-  
-  mostrarFlechas();
+
+  switch (estadoHorario) {
+    case HORARIO_CANTIDAD:
+      display.setTextSize(1);
+      display.setCursor((SCREEN_WIDTH - 84) / 2, 10);
+      display.println("Veces al dia:");
+      display.setTextSize(2);
+      display.setCursor((SCREEN_WIDTH - 12) / 2, 30);
+      display.print(cantidadVeces);
+      mostrarFlechas();
+      break;
+
+    case HORARIO_HORAS:
+      display.setTextSize(1);
+      display.setCursor((SCREEN_WIDTH - 80) / 2, 10);
+      display.print("Hora comida ");
+      display.print(indiceHoraActual + 1);
+      display.setTextSize(2);
+      display.setCursor((SCREEN_WIDTH - 48) / 2, 30);
+      if (horasAlimentacion[indiceHoraActual] < 10) display.print("0");
+      display.print(horasAlimentacion[indiceHoraActual]);
+      display.print(":");
+      if (minutosAlimentacion[indiceHoraActual] < 10) display.print("0");
+      display.print(minutosAlimentacion[indiceHoraActual]);
+      mostrarFlechas();
+      break;
+
+    case HORARIO_MOSTRAR:
+      display.setTextSize(1);
+      display.setCursor(SCREEN_WIDTH / 2 - 20, 10);
+      display.println("Horario:");
+      display.setTextSize(2);
+      display.setCursor(SCREEN_WIDTH / 2 - 20, 30);
+      if (hora < 10) display.print("0");
+      display.print(hora);
+      display.print(":");
+      if (minuto < 10) display.print("0");
+      display.print(minuto);
+      mostrarFlechas();
+      break;
+  }
+
   display.display();
 }
-
 // ====================== Control de Botones ======================
 void controlarBotones() {
   if (digitalRead(BUTTON_SELECT) == LOW) {
@@ -204,7 +247,8 @@ void controlarBotones() {
   }
 }
 
-// ====================== Setup y Loop ======================
+// SETUP ----------------
+
 void setup() {
   Serial.begin(115200);
   pinMode(BUTTON_LEFT, INPUT_PULLUP);
@@ -219,51 +263,138 @@ void setup() {
   display.display();
 }
 
+// LOOP ----------------
 void loop() {
-  static bool animacionHecha = false;  // Controla si la animación ya se mostró
+  static bool animacionHecha = false;
 
-  // ----- Animación Inicial -----
+  // ----- ANIMACIÓN INICIAL (solo una vez) -----
   if (!animacionHecha) {
-    // Mostrar cada frame de la animación
+    // 1. Mostrar todos los frames de la animación
     for (int i = 0; i < NUM_BITMAPS; i++) {
       display.clearDisplay();
-      display.drawBitmap(0, 0, animacionBitmaps[i], 128, 64, SSD1306_WHITE);
+      display.drawBitmap(0, 0, animacionBitmaps[i], SCREEN_WIDTH, SCREEN_HEIGHT, SSD1306_WHITE);
       display.display();
       delay(animacionDelays[i]);
     }
-    
-    // Mensaje "Onix 1.0" después de la animación
+
+    // 2. Mostrar mensaje "Onix 1.0"
     display.clearDisplay();
     display.setTextSize(2);
-    display.setCursor(5, 20);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(
+      (SCREEN_WIDTH - 6 * 12) / 2,
+      (SCREEN_HEIGHT - 16) / 2
+    );
     display.println("Onix 1.0");
     display.display();
     delay(1000);
-    
-    animacionHecha = true;  // Marcar animación como completada
+
+    animacionHecha = true;
   } 
   
-  // ----- Lógica Principal de Menús -----
+  // ----- LÓGICA PRINCIPAL -----
   else {
-    // Mostrar menú principal o submenú según el estado
+    // Mostrar menú actual
     if (!enSubMenu) {
-      mostrarMenuPrincipal();  // Muestra CANTIDAD/EXTRAER/HORARIO en texto grande
+      mostrarMenuPrincipal();
     } else {
-      // Mostrar submenú específico
       switch (menuActual) {
         case MENU_CANTIDAD:
-          mostrarSubMenuCantidad();  // Ajuste de cantidad (10g, 20g...)
+          mostrarSubMenuCantidad();
           break;
         case MENU_EXTRACCION:
-          mostrarSubMenuExtraccion();  // Confirmación para extraer
+          mostrarSubMenuExtraccion();
           break;
         case MENU_HORARIO:
-          mostrarSubMenuHorario();  // Ajuste de hora
+          mostrarSubMenuHorario(); // ahora maneja todos los estados internos
           break;
       }
     }
-    
-    // Gestionar botones (navegación y acciones)
-    controlarBotones();
+
+    // ----- BOTÓN SELECT -----
+    if (digitalRead(BUTTON_SELECT) == LOW) {
+      if (!enSubMenu) {
+        enSubMenu = true;  // Entrar al submenú
+      } else {
+        if (menuActual == MENU_EXTRACCION) {
+          myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
+          enSubMenu = false;
+        }
+        else if (menuActual == MENU_HORARIO) {
+          if (estadoHorario == HORARIO_MOSTRAR) {
+            estadoHorario = HORARIO_CANTIDAD; // paso 1 -> cantidad
+          } 
+          else if (estadoHorario == HORARIO_CANTIDAD) {
+            estadoHorario = HORARIO_HORAS; // paso 2 -> horas
+            indiceHoraActual = 0;
+          } 
+          else if (estadoHorario == HORARIO_HORAS) {
+            indiceHoraActual++;
+            if (indiceHoraActual >= cantidadVeces) {
+              estadoHorario = HORARIO_MOSTRAR; // vuelve a la vista inicial
+              enSubMenu = false;
+            }
+          }
+        }
+      }
+      delay(200);
+    }
+
+    // ----- BOTONES NAVEGACIÓN -----
+    if (!enSubMenu) {
+      // Menú principal
+      if (digitalRead(BUTTON_RIGHT) == LOW) {
+        menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
+        delay(200);
+      }
+      if (digitalRead(BUTTON_LEFT) == LOW) {
+        menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
+        delay(200);
+      }
+    } else {
+      // Ajustes dentro del submenú
+      if (menuActual == MENU_CANTIDAD) {
+        if (digitalRead(BUTTON_LEFT) == LOW) {
+          cantidadIndex = (cantidadIndex - 1 + totalCantidades) % totalCantidades;
+          delay(200);
+        }
+        if (digitalRead(BUTTON_RIGHT) == LOW) {
+          cantidadIndex = (cantidadIndex + 1) % totalCantidades;
+          delay(200);
+        }
+      }
+      else if (menuActual == MENU_HORARIO) {
+        if (estadoHorario == HORARIO_MOSTRAR) {
+          if (digitalRead(BUTTON_LEFT) == LOW) {
+            hora = (hora - 1 + 24) % 24;
+            delay(200);
+          }
+          if (digitalRead(BUTTON_RIGHT) == LOW) {
+            hora = (hora + 1) % 24;
+            delay(200);
+          }
+        }
+        else if (estadoHorario == HORARIO_CANTIDAD) {
+          if (digitalRead(BUTTON_LEFT) == LOW && cantidadVeces > 1) {
+            cantidadVeces--;
+            delay(200);
+          }
+          if (digitalRead(BUTTON_RIGHT) == LOW && cantidadVeces < 6) {
+            cantidadVeces++;
+            delay(200);
+          }
+        }
+        else if (estadoHorario == HORARIO_HORAS) {
+          if (digitalRead(BUTTON_LEFT) == LOW) {
+            horasAlimentacion[indiceHoraActual] = (horasAlimentacion[indiceHoraActual] - 1 + 24) % 24;
+            delay(200);
+          }
+          if (digitalRead(BUTTON_RIGHT) == LOW) {
+            horasAlimentacion[indiceHoraActual] = (horasAlimentacion[indiceHoraActual] + 1) % 24;
+            delay(200);
+          }
+        }
+      }
+    }
   }
 }
