@@ -242,57 +242,6 @@ void mostrarSubMenuHorario() {
 
 
 
-
-
-
-
-
-  display.clearDisplay();
-  display.setTextColor(SSD1306_WHITE);
-
-  switch (estadoHorario) {
-    case HORARIO_CANTIDAD:
-      display.setTextSize(1);
-      display.setCursor((SCREEN_WIDTH - 84) / 2, 10);
-      display.println("Veces al dia:");
-      display.setTextSize(2);
-      display.setCursor((SCREEN_WIDTH - 12) / 2, 30);
-      display.print(cantidadVeces);
-      mostrarFlechas();
-      break;
-
-    case HORARIO_HORAS:
-      display.setTextSize(1);
-      display.setCursor((SCREEN_WIDTH - 80) / 2, 10);
-      display.print("Hora comida ");
-      display.print(indiceHoraActual + 1);
-      display.setTextSize(2);
-      display.setCursor((SCREEN_WIDTH - 48) / 2, 30);
-      if (horasAlimentacion[indiceHoraActual] < 10) display.print("0");
-      display.print(horasAlimentacion[indiceHoraActual]);
-      display.print(":");
-      if (minutosAlimentacion[indiceHoraActual] < 10) display.print("0");
-      display.print(minutosAlimentacion[indiceHoraActual]);
-      mostrarFlechas();
-      break;
-
-    case HORARIO_MOSTRAR:
-      display.setTextSize(1);
-      display.setCursor(SCREEN_WIDTH / 2 - 20, 10);
-      display.println("Horario:");
-      display.setTextSize(2);
-      display.setCursor(SCREEN_WIDTH / 2 - 20, 30);
-      if (hora < 10) display.print("0");
-      display.print(hora);
-      display.print(":");
-      if (minuto < 10) display.print("0");
-      display.print(minuto);
-      mostrarFlechas();
-      break;
-  }
-
-  display.display();
-}
 // ====================== Control de Botones ======================
 void controlarBotones() {
   if (digitalRead(BUTTON_SELECT) == LOW) {
@@ -377,13 +326,12 @@ if (!rtc.begin()) {
 
 }
 
-// LOOP ----------------
+
 void loop() {
   static bool animacionHecha = false;
 
-  // ----- ANIMACIÓN INICIAL (solo una vez) -----
+  // ----- ANIMACIÓN INICIAL -----
   if (!animacionHecha) {
-    // 1. Mostrar todos los frames de la animación
     for (int i = 0; i < NUM_BITMAPS; i++) {
       display.clearDisplay();
       display.drawBitmap(0, 0, animacionBitmaps[i], SCREEN_WIDTH, SCREEN_HEIGHT, SSD1306_WHITE);
@@ -391,24 +339,18 @@ void loop() {
       delay(animacionDelays[i]);
     }
 
-    // 2. Mostrar mensaje "Onix 1.0"
     display.clearDisplay();
     display.setTextSize(2);
     display.setTextColor(SSD1306_WHITE);
-    display.setCursor(
-      (SCREEN_WIDTH - 6 * 12) / 2,
-      (SCREEN_HEIGHT - 16) / 2
-    );
+    display.setCursor((SCREEN_WIDTH - 6 * 12) / 2, (SCREEN_HEIGHT - 16) / 2);
     display.println("Onix 1.0");
     display.display();
     delay(1000);
 
     animacionHecha = true;
   } 
-  
-  // ----- LÓGICA PRINCIPAL -----
   else {
-    // Mostrar menú actual
+    // ----- MOSTRAR MENÚ -----
     if (!enSubMenu) {
       mostrarMenuPrincipal();
     } else {
@@ -420,7 +362,7 @@ void loop() {
           mostrarSubMenuExtraccion();
           break;
         case MENU_HORARIO:
-          mostrarSubMenuHorario(); // ahora maneja todos los estados internos
+          mostrarSubMenuHorario();
           break;
       }
     }
@@ -430,33 +372,36 @@ void loop() {
       if (!enSubMenu) {
         enSubMenu = true;  // Entrar al submenú
       } else {
+        // Lógica de salida o avance según submenú
         if (menuActual == MENU_EXTRACCION) {
           myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
           enSubMenu = false;
         }
         else if (menuActual == MENU_HORARIO) {
           if (estadoHorario == HORARIO_MOSTRAR) {
-            estadoHorario = HORARIO_CANTIDAD; // paso 1 -> cantidad
+            estadoHorario = HORARIO_CANTIDAD;
           } 
           else if (estadoHorario == HORARIO_CANTIDAD) {
-            estadoHorario = HORARIO_HORAS; // paso 2 -> horas
+            estadoHorario = HORARIO_HORAS;
             indiceHoraActual = 0;
           } 
           else if (estadoHorario == HORARIO_HORAS) {
             indiceHoraActual++;
             if (indiceHoraActual >= cantidadVeces) {
-              estadoHorario = HORARIO_MOSTRAR; // vuelve a la vista inicial
+              estadoHorario = HORARIO_MOSTRAR;
               enSubMenu = false;
             }
           }
+        }
+        else {
+          enSubMenu = false; // salir en otros casos
         }
       }
       delay(200);
     }
 
-    // ----- BOTONES NAVEGACIÓN -----
+    // ----- BOTONES DE NAVEGACIÓN -----
     if (!enSubMenu) {
-      // Menú principal
       if (digitalRead(BUTTON_RIGHT) == LOW) {
         menuActual = (MenuState)((menuActual + 1) % MENU_TOTAL);
         delay(200);
@@ -465,8 +410,9 @@ void loop() {
         menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
         delay(200);
       }
-    } else {
-      // Ajustes dentro del submenú
+    } 
+    else {
+      // ----- SUBMENÚ CANTIDAD -----
       if (menuActual == MENU_CANTIDAD) {
         if (digitalRead(BUTTON_LEFT) == LOW) {
           cantidadIndex = (cantidadIndex - 1 + totalCantidades) % totalCantidades;
@@ -477,6 +423,7 @@ void loop() {
           delay(200);
         }
       }
+      // ----- SUBMENÚ HORARIO -----
       else if (menuActual == MENU_HORARIO) {
         if (estadoHorario == HORARIO_MOSTRAR) {
           if (digitalRead(BUTTON_LEFT) == LOW) {
@@ -509,23 +456,19 @@ void loop() {
           }
         }
 
-        // comprobar horarios y activar motor (usa RTC si está)
-DateTime now = rtcPresent ? rtc.now() : DateTime(2000,1,1,hora,minuto,0);
+        // ----- VERIFICAR HORARIOS Y ACTIVAR MOTOR -----
+        DateTime now = rtcPresent ? rtc.now() : DateTime(2000,1,1,hora,minuto,0);
 
-for (int i = 0; i < cantidadVeces; i++) {
-  if (now.hour() == horasAlimentacion[i] && now.minute() == minutosAlimentacion[i]) {
-    if (lastTriggerMinute[i] != now.minute()) {
-      // activar motor (usa cantidadIndex actual)
-      myStepper.setSpeed(10);
-      myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
-
-      lastTriggerMinute[i] = now.minute();
-      delay(1000); // evita retriggers instantáneos
-    }
-  }
-}
-
-
+        for (int i = 0; i < cantidadVeces; i++) {
+          if (now.hour() == horasAlimentacion[i] && now.minute() == minutosAlimentacion[i]) {
+            if (lastTriggerMinute[i] != now.minute()) {
+              myStepper.setSpeed(10);
+              myStepper.step(STEPS_PER_REV * revolucionesPorCantidad[cantidadIndex]);
+              lastTriggerMinute[i] = now.minute();
+              delay(1000); // Evita doble activación
+            }
+          }
+        }
       }
     }
   }
