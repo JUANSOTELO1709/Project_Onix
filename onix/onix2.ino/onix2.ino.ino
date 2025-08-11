@@ -54,10 +54,6 @@ int cantidadIndex = 0;                                                // Índice
 int hora = 8;    // Hora inicial (formato 24h)
 int minuto = 0;  // Minuto inicial
 
-
-
-
-
 int cantidadVeces = 2; // por defecto
 int horasAlimentacion[6] = {8, 12, 18, 0, 0, 0};
 int minutosAlimentacion[6] = {0, 0, 0, 0, 0, 0};
