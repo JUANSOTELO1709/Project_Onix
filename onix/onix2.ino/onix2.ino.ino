@@ -17,9 +17,10 @@ int lastTriggerMinute[6] = {-1, -1, -1, -1, -1, -1}; // evita re-triggers en el 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // ====================== Botones ======================
-#define BUTTON_LEFT 2
-#define BUTTON_RIGHT 3
-#define BUTTON_SELECT 6
+#define BUTTON_LEFT 0
+#define BUTTON_RIGHT 1
+#define BUTTON_SELECT 2
+#define BUTTON_retry 3
 
 // ====================== Motor Paso a Paso ======================
 #define STEPS_PER_REV 2048
@@ -66,7 +67,6 @@ enum HorarioState {
 
 HorarioState estadoHorario = HORARIO_MOSTRAR;
 int indiceHoraActual = 0;
-
 
 // ====================== Función para mostrar flechas ======================
 void mostrarFlechas() {
@@ -235,8 +235,6 @@ void mostrarSubMenuHorario() {
 
   display.display();
 }
-
-
 
 // ====================== Control de Botones ======================
 void controlarBotones() {
