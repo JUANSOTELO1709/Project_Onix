@@ -264,6 +264,7 @@ void controlarBotones() {
       menuActual = (MenuState)((menuActual - 1 + MENU_TOTAL) % MENU_TOTAL);
       delay(200);
     }
+    
   } else {
     // Ajustes dentro del submenú
     if (digitalRead(BUTTON_LEFT) == LOW) {
